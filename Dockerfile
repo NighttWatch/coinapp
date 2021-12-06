@@ -1,9 +1,6 @@
 # Base Image - First Stage
 FROM python:3.9 AS firststage
 
-# Copy to requirements to work path
-COPY requirements.txt .
-
 #Run requrements to user field (/root/.local)
 RUN pip install --user -r requirements.txt
 
