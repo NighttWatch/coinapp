@@ -63,6 +63,6 @@ services:
     env_file:
       - ./route_monster/.env
     depends_on: 
-      - mongodb
-      - rediscache
-      - hetes_app
+      - algod
+      - indexer
+      - indexer-db
