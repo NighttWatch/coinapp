@@ -59,9 +59,6 @@ services:
   
   distributor:
     build: ./
-    restart: always
-    env_file:
-      - ./route_monster/.env
     depends_on: 
       - algod
       - indexer
