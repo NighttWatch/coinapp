@@ -2,7 +2,7 @@
 FROM python:3.9 AS firststage
 
 #Run requrements to user field (/root/.local)
-RUN pip install -r ./requirements.txt
+RUN pip install --user -r requirements.txt
 
 #Second Stage
 FROM python:3.9-slim
