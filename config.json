@@ -1,0 +1,123 @@
+{
+    "wallets": [
+        {
+            "walletName":"1",
+            "address":"H67BCVJAV3W2KW65MCPMJKGBRXDU5BBS57P25SM2CZSYNA5LYHS7XD635Y",
+            "seedpharese":"11",
+            "passpharese":"winter bind pattern taste expect blur vague bar latin hotel rug trumpet burden horse submit name ugly culture deny clip awesome edit spray above rely",
+            "targetAddresses": [
+                {
+                    "targetAddress":"H67BCVJAV3W2KW65MCPMJKGBRXDU5BBS57P25SM2CZSYNA5LYHS7XD635Y",
+                    "percentage":50
+                },
+                {
+                    "targetAddress":"H67BCVJAV3W2KW65MCPMJKGBRXDU5BBS57P25SM2CZSYNA5LYHS7XD635Y",
+                    "percentage":50
+                }
+            ]
+        },
+        { 
+            "walletName":"2",
+            "address":"H67BCVJAV3W2KW65MCPMJKGBRXDU5BBS57P25SM2CZSYNA5LYHS7XD635Y",
+            "seedpharese":"",
+            "passpharese":"winter bind pattern taste expect blur vague bar latin hotel rug trumpet burden horse submit name ugly culture deny clip awesome edit spray above rely",
+            "targetAddresses": [
+                {
+                    "targetAddress":"H67BCVJAV3W2KW65MCPMJKGBRXDU5BBS57P25SM2CZSYNA5LYHS7XD635Y",
+                    "percentage":50
+                },
+                {
+                    "targetAddress":"H67BCVJAV3W2KW65MCPMJKGBRXDU5BBS57P25SM2CZSYNA5LYHS7XD635Y",
+                    "percentage":50
+                }
+            ]
+        },
+        { 
+            "walletName":"3",
+            "address":"H67BCVJAV3W2KW65MCPMJKGBRXDU5BBS57P25SM2CZSYNA5LYHS7XD635Y",
+            "seedpharese":"",
+            "passpharese":"winter bind pattern taste expect blur vague bar latin hotel rug trumpet burden horse submit name ugly culture deny clip awesome edit spray above rely",
+            "targetAddresses": [
+                {
+                    "targetAddress":"",
+                    "percentage":15
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":15
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":15
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":45
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":10
+                }
+            ]
+        },
+        { 
+            "walletName":"4",
+            "address":"H67BCVJAV3W2KW65MCPMJKGBRXDU5BBS57P25SM2CZSYNA5LYHS7XD635Y",
+            "seedpharese":"",
+            "passpharese":"winter bind pattern taste expect blur vague bar latin hotel rug trumpet burden horse submit name ugly culture deny clip awesome edit spray above rely",
+            "targetAddresses": [
+                {
+                    "targetAddress":"",
+                    "percentage":15
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":15
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":15
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":45
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":10
+                }
+            ]
+        },
+        { 
+            "walletName":"5",
+            "address":"",
+            "seedpharese":"",
+            "passpharese":"",
+            "targetAddresses": [
+                {
+                    "targetAddress":"",
+                    "percentage":15
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":15
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":15
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":45
+                },
+                {
+                    "targetAddress":"",
+                    "percentage":10
+                }
+            ]
+        }
+    ],
+    "email": {
+        "receiver":"serdartekin0721@gmail.com"
+    }
+}

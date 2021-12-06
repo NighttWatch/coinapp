@@ -56,3 +56,13 @@ services:
       POSTGRES_USER: algorand
       POSTGRES_PASSWORD: algorand
       POSTGRES_DB: indexer_db
+  
+  distributor:
+    build: ./
+    restart: always
+    env_file:
+      - ./route_monster/.env
+    depends_on: 
+      - mongodb
+      - rediscache
+      - hetes_app

@@ -1,0 +1,3 @@
+pandas==1.3.4
+py-algorand-sdk==1.8.0
+pretty-html-table==0.9.15
