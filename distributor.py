@@ -47,6 +47,7 @@ class planetSender:
                 if (len(datas["wallets"]) == i):
                     break
                 else:
+                    print(datas["wallets"][i]["passphrase"])
                     publicKey = datas["wallets"][i]["passphrase"]
                     privateKey = mnemonic.to_private_key(publicKey)
                     senderAddress = datas["wallets"][i]["address"] 

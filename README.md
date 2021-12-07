@@ -39,14 +39,26 @@ Sandbox creates the following API endpoints:
   * address: `http://localhost:8980`
 
 
-#### Start to application
+#### Start to application(first installation)
 
 mv ./folder_name ./sandbox
 cd sandbox
 ./sandbox up mainnet
 
+#### Start to application(already installed for updating)
+
+rm -rf sandbox
+git clone ..
+mv ./folder_name ./sandbox
+docker image rm -rf distributor
+./sandbox up mainnet
+
 #### Stop to application
 
 docker-compose down
+
+#### Cleaning all images
+
+docker image prune -a
 
 
