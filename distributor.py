@@ -43,10 +43,6 @@ class planetSender:
     def distributor(self,datas):
         try:
             for i in range(1000):
-                print(i)
-                print(datas)
-                print(datas["wallets"])
-                print(len(datas["wallets"]))
                 if (len(datas["wallets"]) == i):
                     break
                 else:
