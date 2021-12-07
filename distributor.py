@@ -36,15 +36,13 @@ class planetSender:
             if self.exception == False:
                 return "Clear"
             else:
+                print('Control Percentage Error')
                 self.emailSender(self.error)
                 return self.error # sender send error
 
-    def privateKeyConverter(self,publicKeys):
-        if (publicKeys["passpharese"] != ""):
-            private_key = mnemonic.to_private_key(publicKeys["passpharese"])
-            return private_key
-        else: #seedpharese
-            pass
+    def privateKeyConverter(self,publicKey):
+        private_key = mnemonic.to_private_key(publicKey["passphrase"])
+        return private_key
 
     def distributor(self):
         try:
@@ -53,8 +51,8 @@ class planetSender:
                 if (len(datas["wallets"]) == i):
                     break
                 else:
-                    publicKeys = {"passpharese":datas["wallets"][i]["passpharese"],"seedpharese":datas["wallets"][i]["seedpharese"]}
-                    privateKey = self.privateKeyConverter(publicKeys)
+                    publicKey = datas["wallets"][i]["passphrase"]
+                    privateKey = self.privateKeyConverter(publicKey)
                     senderAddress = datas["wallets"][i]["address"] 
                     algod_address = "http://localhost:4001"
                     algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
@@ -88,6 +86,8 @@ class planetSender:
                             # Wait for the transaction to be confirmed
                             self.wait_for_confirmation(algod_client,txid) 
                         except Exception as err:
+                            print('Network Confirmation Error')
+                            print(err)
                             self.error="Network Confirmation Error"
                             self.emailSender(self.error)
                             return
@@ -106,6 +106,7 @@ class planetSender:
                             self.targetInfo.append(int(amount)/100000)
                             time.sleep(1)
                         except Exception as e:
+                            print('Sending Module Error')
                             print(e)
                             self.error=e
                             self.emailSender(self.error)
@@ -187,6 +188,7 @@ class planetSender:
                     sender_email, receiver_email, message.as_string()
                 )
         except Exception as err:
+            print('Email Error')
             print(err)
             return
 
