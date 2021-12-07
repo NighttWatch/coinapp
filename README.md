@@ -47,11 +47,12 @@ cd sandbox
 
 #### Start to application(already installed for updating)
 
+docker-compose down
+docker image rm sandbox_distributor
 rm -rf sandbox
 git clone ..
 mv ./folder_name ./sandbox
-docker image rm -rf distributor
-./sandbox up mainnet
+docker-compose up
 
 #### Stop to application
 
