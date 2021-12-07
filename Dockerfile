@@ -4,7 +4,7 @@ FROM python:3.9 AS firststage
 COPY requirements.txt .
 
 #Run requrements to user field (/root/.local)
-RUN pip3 install --user -r ./sandbox/requirements.txt
+RUN pip3 install -r requirements.txt
 
 #Second Stage
 FROM python:3.9-slim
