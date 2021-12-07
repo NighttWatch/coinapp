@@ -40,10 +40,6 @@ class planetSender:
                 self.emailSender(self.error)
                 return self.error # sender send error
 
-    def privateKeyConverter(self,publicKey):
-        private_key = mnemonic.to_private_key(publicKey)
-        return private_key
-
     def distributor(self):
         try:
             for i in range(1000):
@@ -52,7 +48,7 @@ class planetSender:
                     break
                 else:
                     publicKey = datas["wallets"][i]["passphrase"]
-                    privateKey = self.privateKeyConverter(publicKey)
+                    privateKey = mnemonic.to_private_key(publicKey)
                     senderAddress = datas["wallets"][i]["address"] 
                     algod_address = "http://localhost:4001"
                     algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
