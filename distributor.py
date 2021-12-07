@@ -47,9 +47,12 @@ class planetSender:
                 if (len(datas["wallets"]) == i):
                     break
                 else:
+                    print(datas["wallets"])
                     publicKey = datas["wallets"][i]["passphrase"]
+                    print(publicKey)
                     privateKey = mnemonic.to_private_key(publicKey)
                     senderAddress = datas["wallets"][i]["address"] 
+                    print(senderAddress)
                     algod_address = "http://localhost:4001"
                     algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     algod_client = algod.AlgodClient(algod_token, algod_address)
