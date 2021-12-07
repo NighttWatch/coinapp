@@ -1,7 +1,7 @@
 # Base Image - First Stage
 FROM python:3.9
 
-WORKDIR /sandbox
+WORKDIR /distributor
 
 COPY requirements.txt requirements.txt
 #Run requrements to user field (/root/.local)
