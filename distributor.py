@@ -41,7 +41,7 @@ class planetSender:
                 return self.error # sender send error
 
     def privateKeyConverter(self,publicKey):
-        private_key = mnemonic.to_private_key(publicKey["passphrase"])
+        private_key = mnemonic.to_private_key(publicKey)
         return private_key
 
     def distributor(self):
@@ -115,6 +115,7 @@ class planetSender:
                 self.balanceBefores.append(balanceBefore)
                 self.targetInfos.append(self.targetInfo)
         except Exception as err:
+            print('Sender Script')
             print(err)
             self.error[0] = err # sender send error
             self.emailSender(self.error)

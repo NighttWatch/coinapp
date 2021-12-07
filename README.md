@@ -41,10 +41,12 @@ Sandbox creates the following API endpoints:
 
 #### Start to application
 
+mv ./folder_name ./sandbox
+cd sandbox
 ./sandbox up mainnet
 
 #### Stop to application
 
-./sandbox down
+docker-compose down
 
 
