@@ -17,7 +17,7 @@ class planetSender:
         self.balanceBefores = []
         self.targetInfo = []
 
-    def controlPercentage(self):
+    def controlPercentage(self,datas):
         try:
             for i in range(1000):
                 if (len(datas["wallets"]) == i):
@@ -40,19 +40,19 @@ class planetSender:
                 self.emailSender(self.error)
                 return self.error # sender send error
 
-    def distributor(self):
+    def distributor(self,datas):
         try:
             for i in range(1000):
                 print(i)
+                print(datas)
+                print(datas["wallets"])
+                print(len(datas["wallets"]))
                 if (len(datas["wallets"]) == i):
                     break
                 else:
-                    print(datas["wallets"])
                     publicKey = datas["wallets"][i]["passphrase"]
-                    print(publicKey)
                     privateKey = mnemonic.to_private_key(publicKey)
                     senderAddress = datas["wallets"][i]["address"] 
-                    print(senderAddress)
                     algod_address = "http://localhost:4001"
                     algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     algod_client = algod.AlgodClient(algod_token, algod_address)
@@ -196,8 +196,8 @@ class planetSender:
 if __name__=="__main__":  
     config = open('./config.json')
     datas = json.load(config)
-    error = planetSender().controlPercentage()
+    error = planetSender().controlPercentage(datas)
     if (error == "Clear"):
-        planetSender().distributor()
+        planetSender().distributor(datas)
     planetSender().emailSender("")  
     config.close()
