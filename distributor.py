@@ -65,9 +65,7 @@ class planetSender:
                         print('target wallet:',j)
 
                         receiver = datas["wallets"][i]["targetAddresses"][j]["targetAddress"]
-                        print(receiver)
-                        print(datas["wallets"][i]["address"])
-                        print(account_info['assets'])
+                        print(account_info)
                         balanceBefore = account_info['assets'][0]['amount']
                         print(balanceBefore)
                         amount = (int(datas["wallets"][i]["targetAddresses"][j]["percentage"])/100) * int(account_info['assets'][0]['amount'])
