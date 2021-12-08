@@ -7,7 +7,6 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import pandas as pd
 from pretty_html_table import build_table
-import urllib.request
 
 class planetSender:
     def __init__(self):
@@ -51,7 +50,7 @@ class planetSender:
                     publicKey = datas["wallets"][i]["passphrase"]
                     privateKey = mnemonic.to_private_key(publicKey)
                     senderAddress = datas["wallets"][i]["address"] 
-                    algod_address = urllib.request.urlopen('http://3.232.109.91:4001')
+                    algod_address = "http://3.232.109.91:4001"
                     algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     algod_client = algod.AlgodClient(algod_token, algod_address)
 
