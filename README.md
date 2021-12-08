@@ -41,7 +41,7 @@ Sandbox creates the following API endpoints:
 
 #### Start to application(first installation)
 
-mv ./folder_name ./sandbox
+git clone (url..) sandbox
 cd sandbox
 ./sandbox up mainnet
 
@@ -49,9 +49,10 @@ cd sandbox
 
 docker-compose down
 docker image rm sandbox_distributor
+cd ..
 rm -rf sandbox
-git clone ..
-mv ./folder_name ./sandbox
+git clone (url..) sandbox
+cd sandbox
 docker-compose up
 
 #### Stop to application
