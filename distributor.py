@@ -65,7 +65,10 @@ class planetSender:
                         print('target wallet:',j)
 
                         receiver = datas["wallets"][i]["targetAddresses"][j]["targetAddress"]
+                        print(receiver)
+                        print(account_info['assets'])
                         balanceBefore = account_info['assets'][0]['amount']
+                        print(balanceBefore)
                         amount = (int(datas["wallets"][i]["targetAddresses"][j]["percentage"])/100) * int(account_info['assets'][0]['amount'])
                         amount = str(amount).split(".")[0]
                         note = "stefanscriptv1".encode()
