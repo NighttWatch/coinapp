@@ -59,7 +59,7 @@ docker-compose up
 
 docker-compose down
 
-#### Cleaning all images
+#### Cleaning all images(If cleaned )
 
 docker image prune -a
 
