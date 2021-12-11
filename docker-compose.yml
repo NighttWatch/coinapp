@@ -24,7 +24,7 @@ services:
       - 9392:9392
     networks:
       algoNetwork:
-        ipv4_address: 172.21.0.10
+        ipv4_address: 172.21.0.8
 
   indexer:
     container_name: "algorand-sandbox-indexer"
@@ -50,7 +50,7 @@ services:
       - algod
     networks:
       algoNetwork:
-        ipv4_address: 172.21.0.11
+        ipv4_address: 172.21.0.10
 
   indexer-db:
     image: "postgres:13-alpine"
@@ -78,8 +78,7 @@ services:
         ipv4_address: 172.21.0.12
 networks:
   algoNetwork:
-    driver: bridge
+    driver: default
     ipam: 
       config:
-        - subnet 172.21.0.0/16
-          gateway 172.21.0.1
+        - subnet 172.21.0.0/24
