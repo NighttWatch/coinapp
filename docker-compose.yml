@@ -22,6 +22,8 @@ services:
       - 4001:4001
       - 4002:4002
       - 9392:9392
+    networks:
+      - algoNetwork
 
   indexer:
     container_name: "algorand-sandbox-indexer"
@@ -45,6 +47,8 @@ services:
     depends_on:
       - indexer-db
       - algod
+    networks:
+      - algoNetwork
 
   indexer-db:
     image: "postgres:13-alpine"
@@ -56,6 +60,8 @@ services:
       POSTGRES_USER: algorand
       POSTGRES_PASSWORD: algorand
       POSTGRES_DB: indexer_db
+    networks:
+      - algoNetwork
   
   distributor:
     build: .
@@ -65,3 +71,12 @@ services:
       - indexer-db
     links:
       - algod
+    networks:
+    - algoNetwork
+networks:
+  algoNetwork:
+    driver: bridge
+    ipam: 
+      config:
+        - subnet 172.21.0.0/16
+        - gateway 172.21.0.1
