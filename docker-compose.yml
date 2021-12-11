@@ -63,3 +63,5 @@ services:
       - algod
       - indexer
       - indexer-db
+    links:
+      - algod
