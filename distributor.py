@@ -50,7 +50,7 @@ class planetSender:
                     publicKey = datas["wallets"][i]["passphrase"]
                     privateKey = mnemonic.to_private_key(publicKey)
                     senderAddress = datas["wallets"][i]["address"] 
-                    algod_address = "http://172.20.0.1:4001"
+                    algod_address = "http://172.21.0.1:4001"
                     algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
                     algod_client = algod.AlgodClient(algod_token, algod_address)
 
