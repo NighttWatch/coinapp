@@ -23,7 +23,8 @@ services:
       - 4002:4002
       - 9392:9392
     networks:
-      - algoNetwork
+      algoNetwork:
+        ipv4_address: 172.21.0.10
 
   indexer:
     container_name: "algorand-sandbox-indexer"
@@ -48,7 +49,8 @@ services:
       - indexer-db
       - algod
     networks:
-      - algoNetwork
+      algoNetwork:
+        ipv4_address: 172.21.0.11
 
   indexer-db:
     image: "postgres:13-alpine"
@@ -72,7 +74,8 @@ services:
     links:
       - algod
     networks:
-    - algoNetwork
+      algoNetwork:
+        ipv4_address: 172.21.0.12
 networks:
   algoNetwork:
     driver: bridge
