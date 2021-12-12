@@ -39,28 +39,14 @@ Sandbox creates the following API endpoints:
   * address: `http://localhost:8980`
 
 
-#### Start to application(first installation)
+#### Installation Mainnet Server
 
 git clone (url..) sandbox
 cd sandbox
 ./sandbox up mainnet
 
-#### Start to application(already installed for updating)
+#### Start Script
+```
+docker restart sandbox_distributor_1
 
-docker-compose down
-docker image rm sandbox_distributor
-cd ..
-rm -rf sandbox
-git clone (url..) sandbox
-cd sandbox
-docker-compose up
-
-#### Stop to application
-
-docker-compose down
-
-#### Cleaning all images(If cleaned )
-
-docker image prune -a
-
-
+```
