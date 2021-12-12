@@ -41,6 +41,7 @@ Sandbox creates the following API endpoints:
 
 #### Installation Mainnet Server
 ```
+Before the installation please be sure the algod_address in distributor.py is the same as your server IP address.
 git clone (url..) sandbox
 cd sandbox
 ./sandbox up mainnet
