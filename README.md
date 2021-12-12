@@ -40,11 +40,11 @@ Sandbox creates the following API endpoints:
 
 
 #### Installation Mainnet Server
-
+```
 git clone (url..) sandbox
 cd sandbox
 ./sandbox up mainnet
-
+```
 #### Start Script
 ```
 docker restart sandbox_distributor_1
