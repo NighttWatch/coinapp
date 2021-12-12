@@ -117,7 +117,7 @@ class planetSender:
             print(err)
             self.error[0] = err # sender send error
             self.emailSender(self.error)
-            return
+            return "Success"
 
 
     def print_created_asset(self,algodclient, account, assetid):    
@@ -166,12 +166,13 @@ class planetSender:
             message = MIMEMultipart()
             message["From"] = sender_email
             message["To"] = receiver_email
-            if(content[0] == ""):
+            if(content == ""):
                 message["Subject"] = "Succes Planet Transaction " +datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 tableDict = {'Wallet Name':self.walletNames, 'Balance Before':self.balanceBefores, 'Sending Information': self.targetInfos}
                 data = pd.DataFrame(tableDict)
                 htmlMessage = MIMEText(build_table(data,"grey_light"), "html")
             else:
+                print('noo')
                 message["Subject"] = "Planet Transaction Error " +datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 html = "<html><body><p> " + str(content[0]) +" </p></body></html>"              
                 htmlMessage = MIMEText(html,"html")
@@ -198,5 +199,6 @@ if __name__=="__main__":
     error = planetSender().controlPercentage(datas)
     if (error == "Clear"):
         planetSender().distributor(datas)
-    planetSender().emailSender("")  
+    elif (error == "Success"):
+        planetSender().emailSender("")  
     config.close()
