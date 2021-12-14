@@ -1,21 +1,19 @@
 from datetime import datetime
-import json,time,smtplib,ssl
-from algosdk import account, mnemonic
+import json,smtplib,ssl
+from algosdk import mnemonic
 from algosdk.v2client import algod
-from algosdk.future.transaction import AssetTransferTxn
+from algosdk.future.transaction import AssetTransferTxn, SuggestedParams
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
-import pandas as pd
-from pretty_html_table import build_table
 
 class planetSender:
     def __init__(self):
         self.error = [""]
         self.exception = False
-        self.targetInfos = []
         self.walletNames = []
         self.balanceBefores = []
         self.targetInfo = []
+        self.targetInfos = []
 
     def controlPercentage(self,datas):
         try:
@@ -42,82 +40,67 @@ class planetSender:
 
     def distributor(self,datas):
         try:
-            for i in range(1000):
+            for i in range(len(datas["wallets"])):
                 print(i)
-                if (len(datas["wallets"]) == i):
-                    break
-                else:
-                    publicKey = datas["wallets"][i]["passphrase"]
-                    privateKey = mnemonic.to_private_key(publicKey)
-                    senderAddress = datas["wallets"][i]["address"] 
-                    algod_address = "http://23.20.9.146:4001"
-                    algod_token = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    algod_client = algod.AlgodClient(algod_token, algod_address)
+                publicKey = datas["wallets"][i]["passphrase"]
+                privateKey = mnemonic.to_private_key(publicKey)
+                senderAddress = datas["wallets"][i]["address"] 
+                algod_address = "https://mainnet-algorand.api.purestake.io/ps2"
+                algod_token = "pdWVhMhgb33g5LiWpg25rarqbAynJDRg7FhiIbWS"
+                headers = {
+                    "X-API-Key": algod_token,
+                }
+                algod_client = algod.AlgodClient(algod_token, algod_address,headers)
 
-                    # CREATE ASSET
-                    # Get network params for transactions before every transaction.
-                    params = algod_client.suggested_params()
-                    # comment these two lines if you want to use suggested params
-                    params.fee = 1000
-                    params.flat_fee = True
-                    account_info = algod_client.account_info(senderAddress)
-                    for j in range(len(datas["wallets"][i]["targetAddresses"])):
-                        print('target wallet:',j)
-
-                        receiver = datas["wallets"][i]["targetAddresses"][j]["targetAddress"]
-                        print(account_info)
-                        balanceBefore = account_info['assets'][0]['amount']
-                        print(balanceBefore)
-                        amount = (int(datas["wallets"][i]["targetAddresses"][j]["percentage"])/100) * int(account_info['assets'][0]['amount'])
-                        amount = str(amount).split(".")[0]
-                        note = "stefanscriptv1".encode()
-                        unsigned_txn = AssetTransferTxn(sender=senderAddress, sp=params,index=27165954,receiver=receiver,amt=int(amount),note=note)
-
-                        #sign transaction
-                        signed_txn = unsigned_txn.sign(privateKey)
-
-                        #submit transaction
-                        txid = algod_client.send_transaction(signed_txn)
-                        print("Signed transaction with txID: {}".format(txid))
-
-                        try:
-                            # Wait for the transaction to be confirmed
-                            self.wait_for_confirmation(algod_client,txid) 
-                        except Exception as err:
-                            print('Network Confirmation Error')
-                            print(err)
-                            self.error="Network Confirmation Error"
-                            self.emailSender(self.error)
-                            return
-                        try:
-                            # Pull account info for the creator
-                            # account_info = algod_client.account_info(accounts[1]['pk'])
-                            # get asset_id from tx
-                            # Get the new asset's information from the creator account
-                            ptx = algod_client.pending_transaction_info(txid)
-                            print(ptx['txn']['txn']["xaid"])
-                            asset_id = ptx['txn']['txn']["xaid"]
-                            self.print_created_asset(algod_client, senderAddress, asset_id)
-                            self.print_asset_holding(algod_client, senderAddress, asset_id)
-                            self.targetInfo = []
-                            self.targetInfo.append(datas["wallets"][i]["targetAddresses"][j]["targetAddress"])
-                            self.targetInfo.append(int(amount)/100000)
-                            time.sleep(1)
-                        except Exception as e:
-                            print('Sending Module Error')
-                            print(e)
-                            self.error=e
-                            self.emailSender(self.error)
-                            return
+                # CREATE ASSET
+                # Get network params for transactions before every transaction.
+                params = algod_client.suggested_params()
+                # comment these two lines if you want to use suggested params
+                params.fee = 1000
+                params.flat_fee = True
+                account_info = algod_client.account_info(senderAddress)
+                for j in range(len(datas["wallets"][i]["targetAddresses"])):
+                    print('target wallet:',j)
+                    receiver = datas["wallets"][i]["targetAddresses"][j]["targetAddress"]
+                    print(account_info)
+                    balanceBefore = account_info['assets'][0]['amount']
+                    print(balanceBefore)
+                    amount = (int(datas["wallets"][i]["targetAddresses"][j]["percentage"])/100) * int(account_info['assets'][0]['amount'])
+                    amount = str(amount).split(".")[0]
+                    note = "stefanscriptv1".encode()
+                    unsigned_txn = AssetTransferTxn(sender=senderAddress, sp=params,index=27165954,receiver=receiver,amt=int(amount),note=note)
+                    #sign transaction
+                    signed_txn = unsigned_txn.sign(privateKey)
+                    #submit transaction
+                    txid = algod_client.send_transaction(signed_txn)
+                    print("Signed transaction with txID: {}".format(txid))
+                    try:
+                        # Wait for the transaction to be confirmed
+                        self.wait_for_confirmation(algod_client,txid) 
+                    except Exception as err:
+                        print('Network Confirmation Error')
+                        print(err)
+                        self.error="Network Confirmation Error"
+                        self.emailSender(self.error)
+                        return
+                    ptx = algod_client.pending_transaction_info(txid)
+                    asset_id = ptx['txn']['txn']["xaid"]
+                    self.print_created_asset(algod_client, senderAddress, asset_id)
+                    self.print_asset_holding(algod_client, senderAddress, asset_id)                    
+                    self.targetInfo.append(datas["wallets"][i]["targetAddresses"][j]["targetAddress"])
+                    self.targetInfo.append(int(amount)/1000000)
                 self.walletNames.append(datas["wallets"][i]["walletName"])       
                 self.balanceBefores.append(balanceBefore)
                 self.targetInfos.append(self.targetInfo)
+                self.targetInfo = []
+                self.emailSender("")  
+            return
         except Exception as err:
             print('Sender Script')
             print(err)
             self.error[0] = err # sender send error
             self.emailSender(self.error)
-            return "Success"
+            return
 
 
     def print_created_asset(self,algodclient, account, assetid):    
@@ -167,12 +150,18 @@ class planetSender:
             message["From"] = sender_email
             message["To"] = receiver_email
             if(content == ""):
+                print('Success Email Sent')
                 message["Subject"] = "Succes Planet Transaction " +datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                tableDict = {'Wallet Name':self.walletNames, 'Balance Before':self.balanceBefores, 'Sending Information': self.targetInfos}
-                data = pd.DataFrame(tableDict)
-                htmlMessage = MIMEText(build_table(data,"grey_light"), "html")
+                for iter in range(len(self.walletNames)):
+                    row = "<p><b> Wallet "+ self.walletNames[iter]  +"</b> had <b>"+ str(self.balanceBefores[iter]/1000000) +"</b> Planets.</p>"
+                    for insiter in range(len(self.targetInfos[iter])):
+                        if (insiter % 2 == 0):
+                            row_transaction = "<p><b>"+ str(self.targetInfos[iter][insiter+1]) +"</b> planets sent to "+ self.targetInfos[iter][insiter]  +"</p>"                    
+                    row_ending = "<p>***********************************************************************************************************************<br><br></p>"
+                html = "<html><body style='font-size: 16px;'>"+ row + row_transaction + row_ending +"</body></html>"              
+                htmlMessage = MIMEText(html,"html")
             else:
-                print('noo')
+                print('Error email Sent')
                 message["Subject"] = "Planet Transaction Error " +datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 html = "<html><body><p> " + str(content[0]) +" </p></body></html>"              
                 htmlMessage = MIMEText(html,"html")
@@ -198,7 +187,6 @@ if __name__=="__main__":
     datas = json.load(config)
     error = planetSender().controlPercentage(datas)
     if (error == "Clear"):
-        planetSender().distributor(datas)
-    elif (error == "Success"):
-        planetSender().emailSender("")  
+        result = planetSender().distributor(datas)
+              
     config.close()
